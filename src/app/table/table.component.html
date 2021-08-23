@@ -1,0 +1,24 @@
+<div>
+  <table class="table table-striped border mt-1">
+    <thead>
+      <tr
+        class="header"
+        cdkDropList
+        cdkDropListOrientation="horizontal"
+        cdkDropListLockAxis="x"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <th cdkDrag (click)="onSort(header)" *ngFor="let header of headers">
+          {{ header.text }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books$ | async">
+        <td *ngFor="let header of headers">
+          {{ sort.getPropByString(book, header.property) }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
