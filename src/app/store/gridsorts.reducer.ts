@@ -1,18 +1,32 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { GridSort } from '../gridsort/gridsort.model';
-import { addSort, removeSort } from './gridsorts.action';
+import { cloneDeep } from 'lodash';
 
-export const initialState: ReadonlyArray<GridSort> = [];
+import { GridSort } from '../gridsort/gridsort.model';
+import { Sort } from '../util/sort';
+import { updateHeaderSort } from './gridsorts.action';
+
+export const initialState: GridSort[] = [];
 
 const gridSortReducer = createReducer(
   initialState,
-  on(addSort, (state, { header }) => {
-    debugger;
-    return [...state, { field: header.property, sort: header.sort }];
-  }),
-  on(removeSort, (state, { header }) => {
-    debugger;
-    return state.filter((sort) => sort.field == header.property);
+  on(updateHeaderSort, (state, { header }) => {
+    let stateClone = cloneDeep(state);
+    const matchedSort = stateClone.filter(
+      (gs) => gs.key === header.property
+    )[0];
+
+    if (matchedSort) {
+      const nextSort = new Sort().getNextSort(matchedSort.sort);
+
+      if (nextSort === 'none') {
+        stateClone = stateClone.filter((item) => item.key !== matchedSort.key);
+      } else {
+        matchedSort.sort = nextSort;
+      }
+    } else {
+      stateClone.push({ key: header.property, sort: 'asc', type: header.type });
+    }
+    return stateClone;
   })
 );
 

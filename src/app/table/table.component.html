@@ -5,7 +5,6 @@
         class="header"
         cdkDropList
         cdkDropListOrientation="horizontal"
-        cdkDropListLockAxis="x"
         (cdkDropListDropped)="drop($event)"
       >
         <th cdkDrag (click)="onSort(header)" *ngFor="let header of headers">
@@ -21,8 +20,4 @@
       </tr>
     </tbody>
   </table>
-</div>
-
-<div *ngFor="let sort of gridSorts$ | async">
-  {{ sort.field }},{{ sort.sort }}
 </div>

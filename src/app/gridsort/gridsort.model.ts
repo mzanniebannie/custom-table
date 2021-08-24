@@ -1,4 +1,5 @@
 export interface GridSort {
-  field: string;
+  key: string;
   sort: string;
+  type: string;
 }

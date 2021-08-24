@@ -8,9 +8,18 @@ export class Sort {
   constructor() {}
 
   public startSort(property: string, order: string, type: string) {
-    if (order === 'desc') {
-      this.sortOrder = -1;
+    switch (order) {
+      case 'desc':
+        this.sortOrder = -1;
+        break;
+      case 'asc':
+        this.sortOrder = 1;
+        break;
+      default:
+        this.sortOrder = 0;
+        break;
     }
+
     return (a: any, b: any) => {
       if (type === 'date') {
         return this.sortData(
@@ -55,5 +64,17 @@ export class Sort {
       }
     }
     return obj[props[i]];
+  }
+
+  getNextSort(sort: string): string {
+    switch (sort) {
+      case 'none':
+        return 'asc';
+      case 'asc':
+        return 'desc';
+      case 'desc':
+        return 'none';
+    }
+    return 'none';
   }
 }

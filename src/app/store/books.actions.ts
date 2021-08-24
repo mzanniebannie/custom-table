@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Book } from '../book/book.model';
 import { GridSort } from '../gridsort/gridsort.model';
-import { Header } from '../table/table.component';
 
 export const retrievedBookList = createAction(
   '[Books] Get books success',

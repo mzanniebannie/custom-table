@@ -7,7 +7,6 @@ export const getGridSortsSelector = (state: AppState) => state.gridSorts;
 export const getGridSorts = createSelector(
   getGridSortsSelector,
   (gridSorts: GridSort[]) => {
-    debugger;
     return gridSorts;
   }
 );
