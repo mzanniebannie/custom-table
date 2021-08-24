@@ -8,11 +8,12 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppComponent } from './app.component';
 import { BookEffect } from './book/book.effect';
 import { BookService } from './book/book.service';
-import { reducer } from './store/books.reducer';
+import { reducer as booksReducer } from './store/books.reducer';
 import { TableComponent } from './table/table.component';
 import { JoinPipe } from './pipes/join.pipe';
 import { PrettifyPipe } from './pipes/prettify.pipe';
 import { DatePipe } from '@angular/common';
+import { reducer as gridReducer } from './store/gridsorts.reducer';
 
 @NgModule({
   declarations: [AppComponent, TableComponent, JoinPipe, PrettifyPipe],
@@ -21,7 +22,7 @@ import { DatePipe } from '@angular/common';
     HttpClientModule,
     DragDropModule,
     EffectsModule.forRoot([BookEffect]),
-    StoreModule.forRoot({ books: reducer }),
+    StoreModule.forRoot({ books: booksReducer, gridSorts: gridReducer }),
   ],
   providers: [BookService, DatePipe],
   bootstrap: [AppComponent],

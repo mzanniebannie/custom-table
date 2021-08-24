@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, merge } from 'lodash';
 
 import { Book } from '../book/book.model';
 import { getBooks, sortBookList } from '../store/books.actions';
 import { getAllBooks } from '../store/books.selector';
 import { Sort } from '../util/sort';
+import { GridSort } from '../gridsort/gridsort.model';
+import { getGridSorts } from '../store/gridsorts.selector';
+import { map } from 'rxjs/operators';
+import { addSort, removeSort } from '../store/gridsorts.action';
 
 export interface Header {
   text: string;
@@ -23,6 +27,7 @@ export interface Header {
 export class TableComponent implements OnInit {
   sort = new Sort();
   books$ = this.store.pipe(select(getAllBooks));
+  gridSorts$ = this.store.pipe(select(getGridSorts));
   headers: Header[] = [
     {
       text: 'Title',
@@ -50,20 +55,19 @@ export class TableComponent implements OnInit {
     },
   ];
 
-  constructor(private store: Store<{ books: Book[] }>) {}
+  constructor(private store: Store<{ books: Book[]; gridSorts: GridSort[] }>) {}
 
   ngOnInit(): void {
     this.store.dispatch(getBooks());
+    this.gridSorts$.subscribe((value) => {
+      console.log(value);
+    });
   }
 
   onSort(header: Header): void {
-    this.store.dispatch(sortBookList({ header }));
-    const test = this.headers.map(function (a) {
-      return a.property === header.property
-        ? { ...header, sort: header.sort === 'desc' ? 'asc' : 'desc' }
-        : a;
-    });
-    this.headers = test;
+    this.store.dispatch(addSort({ header }));
+
+    // this.store.dispatch(sortBookList({ this.gridsorts$ }));
     debugger;
   }
 

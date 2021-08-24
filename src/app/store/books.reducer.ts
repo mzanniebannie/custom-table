@@ -11,11 +11,10 @@ const booksReducer = createReducer(
   on(retrievedBookList, (state, { books }) => {
     return [...books];
   }),
-  on(sortBookList, (state, { header }) => {
+  on(sortBookList, (state, { gridSorts }) => {
     const sort = new Sort();
-    return state
-      .slice()
-      .sort(sort.startSort(header.property, header.sort, header.type));
+    return state.slice();
+    // .sort(sort.startSort(header.property, header.sort, header.type));
   })
 );
 

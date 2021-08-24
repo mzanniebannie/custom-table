@@ -22,3 +22,7 @@
     </tbody>
   </table>
 </div>
+
+<div *ngFor="let sort of gridSorts$ | async">
+  {{ sort.field }},{{ sort.sort }}
+</div>
