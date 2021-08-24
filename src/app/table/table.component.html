@@ -16,7 +16,7 @@
     <tbody>
       <tr *ngFor="let book of books$ | async">
         <td *ngFor="let header of headers">
-          {{ sort.getPropByString(book, header.property) }}
+          {{ sort.getPropByString(book, header.property) | prettify }}
         </td>
       </tr>
     </tbody>

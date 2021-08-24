@@ -1,7 +1,8 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { Book } from '../book/book.model';
+import { Sort } from '../util/sort';
 
-import { retrievedBookList } from './books.actions';
+import { retrievedBookList, sortBookList } from './books.actions';
 
 export const initialState: ReadonlyArray<Book> = [];
 
@@ -9,6 +10,12 @@ const booksReducer = createReducer(
   initialState,
   on(retrievedBookList, (state, { books }) => {
     return [...books];
+  }),
+  on(sortBookList, (state, { header }) => {
+    const sort = new Sort();
+    return state
+      .slice()
+      .sort(sort.startSort(header.property, header.sort, header.type));
   })
 );
 

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { cloneDeep } from 'lodash';
 
 import { Book } from '../book/book.model';
-import { getBooks } from '../store/books.actions';
-import { getAllBooks, sortBooks } from '../store/books.selector';
+import { getBooks, sortBookList } from '../store/books.actions';
+import { getAllBooks } from '../store/books.selector';
 import { Sort } from '../util/sort';
 
 export interface Header {
@@ -25,25 +26,25 @@ export class TableComponent implements OnInit {
   headers: Header[] = [
     {
       text: 'Title',
-      sort: 'none',
+      sort: 'desc',
       property: 'volumeInfo.title',
       type: 'string',
     },
     {
       text: 'Author',
-      sort: 'none',
+      sort: 'desc',
       property: 'volumeInfo.authors',
       type: 'string',
     },
     {
       text: 'Page Count',
-      sort: 'none',
+      sort: 'desc',
       property: 'volumeInfo.pageCount',
       type: 'number',
     },
     {
       text: 'Publish Date',
-      sort: 'none',
+      sort: 'desc',
       property: 'volumeInfo.publishedDate',
       type: 'Date',
     },
@@ -56,6 +57,13 @@ export class TableComponent implements OnInit {
   }
 
   onSort(header: Header): void {
+    this.store.dispatch(sortBookList({ header }));
+    const test = this.headers.map(function (a) {
+      return a.property === header.property
+        ? { ...header, sort: header.sort === 'desc' ? 'asc' : 'desc' }
+        : a;
+    });
+    this.headers = test;
     debugger;
   }
 
