@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+
 import { Book } from '../book/models/book.model';
 import { searchBookList } from '../book/store/books.actions';
 import { GridSort } from '../gridsort/models/gridsort.model';
+import { getGridSorts } from '../gridsort/store/gridsorts.selector';
 
 @Component({
   selector: 'app-search',
@@ -14,29 +16,29 @@ import { GridSort } from '../gridsort/models/gridsort.model';
 })
 export class SearchComponent implements OnInit {
   search: FormControl = new FormControl();
-  result: string = '';
 
   constructor(private store: Store<{ books: Book[]; gridSorts: GridSort[] }>) {}
 
   ngOnInit(): void {
     this.search.valueChanges
       .pipe(
-        // debounce input for 400 milliseconds
         debounceTime(400),
-        // only emit if emission is different from previous emission
         distinctUntilChanged(),
-        // switch map api call. This will cause previous api call to be ignored if it is still running when new emission comes along
         switchMap((res) => this.getSearchData(res))
       )
       .subscribe((res) => {
         console.log('result', res);
-        this.result = res;
       });
   }
 
-  // dummy api request. just returns same value passed in
   getSearchData(value: string) {
-    this.store.dispatch(searchBookList({ searchString: value }));
+    this.store.pipe(select(getGridSorts)).subscribe((gs) => {
+      debugger;
+      this.store.dispatch(
+        searchBookList({ searchString: value, gridSorts: gs })
+      );
+    });
+
     return of(value);
   }
 }

@@ -85,10 +85,10 @@ export class TableComponent implements OnInit {
   private getNextSortIcon(sort: string): string {
     switch (sort) {
       case 'horizontal_rule':
-        return 'expand_more';
-      case 'expand_more':
         return 'expand_less';
       case 'expand_less':
+        return 'expand_more';
+      case 'expand_more':
         return 'horizontal_rule';
     }
     return 'horizontal_rule';
