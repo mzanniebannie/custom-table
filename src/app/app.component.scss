@@ -1,3 +1,96 @@
 .table-container {
-  padding: 5em;
+  padding: 0 5em 5em 5em;
+}
+
+.wrapper {
+  padding-top: 2em;
+  height: 10vh;
+  /*This part is important for centering*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typing-demo {
+  width: 22ch;
+  animation: typing 2s steps(22), blink 0.5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: monospace;
+  font-size: 2em;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+$primary-color: white;
+$line-color: rgb(243, 240, 240);
+$transparent: transparent;
+$size: 30px;
+
+body {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+        circle farthest-side at 0% 50%,
+        $primary-color 23.5%,
+        $transparent 0
+      )
+      ($size * 0.7) $size,
+    radial-gradient(
+        circle farthest-side at 0% 50%,
+        $line-color 24%,
+        $transparent 0
+      )
+      ($size * 0.6129) $size,
+    linear-gradient(
+        $primary-color 14%,
+        $transparent 0,
+        $transparent 85%,
+        $primary-color 0
+      )
+      0 0,
+    linear-gradient(
+        150deg,
+        $primary-color 24%,
+        $line-color 0,
+        $line-color 26%,
+        $transparent 0,
+        $transparent 74%,
+        $line-color 0,
+        $line-color 76%,
+        $primary-color 0
+      )
+      0 0,
+    linear-gradient(
+        30deg,
+        $primary-color 24%,
+        $line-color 0,
+        $line-color 26%,
+        $transparent 0,
+        $transparent 74%,
+        $line-color 0,
+        $line-color 76%,
+        $primary-color 0
+      )
+      0 0,
+    linear-gradient(
+        90deg,
+        $line-color 2%,
+        $primary-color 0,
+        $primary-color 98%,
+        $line-color 0%
+      )
+      0 0 $primary-color;
+  background-size: ($size * 1.333) ($size * 2);
 }
