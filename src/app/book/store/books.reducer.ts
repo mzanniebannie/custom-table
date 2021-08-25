@@ -27,23 +27,20 @@ const booksReducer = createReducer(
     return stateClone;
   }),
   on(searchBookList, (state, { searchString, gridSorts }) => {
-    debugger;
-
     const sort = new Sort();
     searchString = searchString.toLowerCase();
     let stateClone = cloneDeep(initialState);
-    let test = stateClone.filter(
+    let filteredClone = stateClone.filter(
       (items) =>
-        items.volumeInfo.authors?.join().toLowerCase() === searchString ||
+        items.volumeInfo.authors?.join().toLowerCase().includes(searchString) ||
         items.volumeInfo.pageCount === parseInt(searchString) ||
-        items.volumeInfo.title?.toLowerCase() === searchString
+        items.volumeInfo.title?.toLowerCase().includes(searchString)
     );
-    debugger;
     gridSorts.forEach((s) => {
-      test = test.sort(sort.startSort(s.key, s.sort, s.type));
+      filteredClone = filteredClone.sort(sort.startSort(s.key, s.sort, s.type));
     });
 
-    return test;
+    return filteredClone;
   })
 );
 

@@ -33,7 +33,6 @@ export class SearchComponent implements OnInit {
 
   getSearchData(value: string) {
     this.store.pipe(select(getGridSorts)).subscribe((gs) => {
-      debugger;
       this.store.dispatch(
         searchBookList({ searchString: value, gridSorts: gs })
       );
