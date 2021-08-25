@@ -1,8 +1,9 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { cloneDeep } from 'lodash';
 
-import { GridSort } from '../gridsort/gridsort.model';
-import { Sort } from '../util/sort';
+import { Sort } from 'src/app/util/sort';
+import { GridSort } from '../models/gridsort.model';
+
 import { updateHeaderSort } from './gridsorts.action';
 
 export const initialState: GridSort[] = [];

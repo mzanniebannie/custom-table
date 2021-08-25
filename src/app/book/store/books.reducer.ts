@@ -1,9 +1,9 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { Book } from '../book/book.model';
-import { Sort } from '../util/sort';
 import { cloneDeep } from 'lodash';
 
+import { Book } from '../models/book.model';
 import { retrievedBookList, sortBookList } from './books.actions';
+import { Sort } from 'src/app/util/sort';
 
 export let initialState: Book[] = [];
 

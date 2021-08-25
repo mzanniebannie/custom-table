@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 
-import { Book } from '../book/book.model';
-import { getBooks, sortBookList } from '../store/books.actions';
-import { getAllBooks } from '../store/books.selector';
-import { GridSort } from '../gridsort/gridsort.model';
-import { getGridSorts } from '../store/gridsorts.selector';
-import { updateHeaderSort } from '../store/gridsorts.action';
+import { Book } from '../book/models/book.model';
+import { getBooks, sortBookList } from '../book/store/books.actions';
+import { GridSort } from '../gridsort/models/gridsort.model';
+import { updateHeaderSort } from '../gridsort/store/gridsorts.action';
 import { Sort } from '../util/sort';
+import { getAllBooks } from '../book/store/books.selector';
+import { getGridSorts } from '../gridsort/store/gridsorts.selector';
 
 export interface Header {
   text: string;

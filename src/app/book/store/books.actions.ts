@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { Book } from '../book/book.model';
-import { GridSort } from '../gridsort/gridsort.model';
+import { Book } from '../models/book.model';
+import { GridSort } from '../../gridsort/models/gridsort.model';
 
 export const retrievedBookList = createAction(
   '[Books] Get books success',

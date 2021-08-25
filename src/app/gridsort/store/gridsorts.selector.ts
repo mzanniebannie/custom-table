@@ -1,6 +1,7 @@
 import { createSelector } from '@ngrx/store';
-import { GridSort } from '../gridsort/gridsort.model';
-import { AppState } from './app.state';
+
+import { AppState } from 'src/app/app.state';
+import { GridSort } from '../models/gridsort.model';
 
 export const getGridSortsSelector = (state: AppState) => state.gridSorts;
 
