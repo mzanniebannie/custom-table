@@ -1,34 +1,20 @@
- name: Deploy to GitHub Pages via angular-cli-ghpages
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
 
- on:
-   push:
-     branches:
-     - main
+    runs-on: ubuntu-latest
 
- jobs:
-   build-and-deploy:
-     runs-on: ubuntu-latest
-
-     steps:
-     - name: Checkout
-       uses: actions/checkout@v2
-
-     - name: Use Node.js 10.x
-       uses: actions/setup-node@v1
-       with:
-         node-version: 10.x
-
-     - name: Prepare and deploy
-       env:
-         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-       run: |
-         npm install
-         npm run lint
-         ###
-         # Configure Angular first!
-         ####
-         # npm test -- --watch=false --progress=false --browsers=ChromeHeadlessCI
-         # npm run webdriver-update-ci
-         # npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js --webdriver-update=false
-         ####
-         npm run ng -- deploy --base-href=/custom-table/ --name="mzanniebannie" --email=mzanniebannie@gmail.com
+    steps:
+    - uses: actions/checkout@v2
+    - name: All things angular
+      uses: AhsanAyaz/angular-deploy-gh-pages-actions@[version] ## replace by latest version without it you will see Expected format {org}/{repo}[/path]@ref. Actual 'AhsanAyaz/angular-deploy-gh-pages-actions',Input string was not in a correct format.
+      with:
+        github_access_token: ${{ secrets.GH_TOKEN }} # see the Configuration section for how you can create secrets
+        build_configuration: production # The build environment for the app. please look configurations in your angular.json
+        base_href: /custom-table/   # make sure this corresponds to https://<your_username>.github.io/<base_href>/
+        deploy_branch: gh-pages # The branch the action should deploy to.
+        angular_dist_build_folder: dist/clickup-table # The folder where your project is supposed to be after running ng build by the action.
