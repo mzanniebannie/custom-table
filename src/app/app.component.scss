@@ -4,19 +4,22 @@
 
 .wrapper {
   padding-top: 2em;
-  height: 10vh;
+  height: 6vh;
   /*This part is important for centering*/
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+img {
+  width: 5em;
+}
+
 .typing-demo {
-  width: 22ch;
+  width: 26ch;
   animation: typing 2s steps(22), blink 0.5s step-end infinite alternate;
   white-space: nowrap;
   overflow: hidden;
-  border-right: 3px solid;
   font-family: monospace;
   font-size: 2em;
 }
