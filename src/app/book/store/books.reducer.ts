@@ -32,7 +32,7 @@ const booksReducer = createReducer(
     let stateClone = cloneDeep(initialState);
     const test = stateClone.filter(
       (items) =>
-        items.volumeInfo.authors.join().toLowerCase().includes(searchString) ||
+        items.volumeInfo.authors?.join().toLowerCase().includes(searchString) ||
         items.volumeInfo.pageCount === parseInt(searchString) ||
         items.volumeInfo.title?.toLowerCase().includes(searchString)
     );
