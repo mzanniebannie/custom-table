@@ -12,7 +12,7 @@ export class BookService {
   getBooks(): Observable<Book[]> {
     return this.http
       .get<{ items: Book[] }>(
-        'https://www.googleapis.com/books/v1/volumes?maxResults=20&orderBy=relevance&q=lord%20of%20the%20rings'
+        'https://www.googleapis.com/books/v1/volumes?maxResults=20&orderBy=relevance&q=hexagons'
       )
       .pipe(map((books) => books.items || []));
   }
