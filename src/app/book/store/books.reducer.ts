@@ -34,9 +34,9 @@ const booksReducer = createReducer(
     let stateClone = cloneDeep(initialState);
     let test = stateClone.filter(
       (items) =>
-        items.volumeInfo.authors?.join().toLowerCase().includes(searchString) ||
+        items.volumeInfo.authors?.join().toLowerCase() === searchString ||
         items.volumeInfo.pageCount === parseInt(searchString) ||
-        items.volumeInfo.title?.toLowerCase().includes(searchString)
+        items.volumeInfo.title?.toLowerCase() === searchString
     );
     debugger;
     gridSorts.forEach((s) => {
