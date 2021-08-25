@@ -2,7 +2,11 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { cloneDeep } from 'lodash';
 
 import { Book } from '../models/book.model';
-import { retrievedBookList, sortBookList } from './books.actions';
+import {
+  retrievedBookList,
+  searchBookList,
+  sortBookList,
+} from './books.actions';
 import { Sort } from 'src/app/util/sort';
 
 export let initialState: Book[] = [];
@@ -21,6 +25,20 @@ const booksReducer = createReducer(
     });
 
     return stateClone;
+  }),
+  on(searchBookList, (state, { searchString }) => {
+    debugger;
+    searchString = searchString.toLowerCase();
+    let stateClone = cloneDeep(initialState);
+    const test = stateClone.filter(
+      (items) =>
+        items.id?.toLowerCase().includes(searchString) ||
+        items.volumeInfo.authors?.includes(searchString) ||
+        items.volumeInfo.pageCount === parseInt(searchString) ||
+        items.volumeInfo.title?.toLowerCase().includes(searchString) ||
+        new Date(items.volumeInfo.publishedDate) === new Date(searchString)
+    );
+    return test;
   })
 );
 

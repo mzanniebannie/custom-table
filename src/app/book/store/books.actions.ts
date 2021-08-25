@@ -12,4 +12,9 @@ export const sortBookList = createAction(
   props<{ gridSorts: GridSort[] }>()
 );
 
+export const searchBookList = createAction(
+  '[Books] Searching all book data',
+  props<{ searchString: string }>()
+);
+
 export const getBooks = createAction('[Books] Get books');
