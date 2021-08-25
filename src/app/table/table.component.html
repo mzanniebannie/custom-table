@@ -2,13 +2,20 @@
   <table class="table table-striped border mt-1">
     <thead>
       <tr
-        class="header"
         cdkDropList
         cdkDropListOrientation="horizontal"
         (cdkDropListDropped)="drop($event)"
       >
-        <th cdkDrag (click)="onSort(header)" *ngFor="let header of headers">
-          {{ header.text }}
+        <th
+          class="header"
+          cdkDrag
+          (click)="onSort(header)"
+          *ngFor="let header of headers"
+        >
+          <div class="header-text">
+            {{ header.text }}
+            <span class="material-icons">{{ header.sortIcon }}</span>
+          </div>
         </th>
       </tr>
     </thead>

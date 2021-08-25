@@ -5,15 +5,16 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Book } from '../book/book.model';
 import { getBooks, sortBookList } from '../store/books.actions';
 import { getAllBooks } from '../store/books.selector';
-import { Sort } from '../util/sort';
 import { GridSort } from '../gridsort/gridsort.model';
 import { getGridSorts } from '../store/gridsorts.selector';
 import { updateHeaderSort } from '../store/gridsorts.action';
+import { Sort } from '../util/sort';
 
 export interface Header {
   text: string;
   property: string;
   type: string;
+  sortIcon: string;
 }
 
 @Component({
@@ -30,21 +31,25 @@ export class TableComponent implements OnInit {
       text: 'Title',
       property: 'volumeInfo.title',
       type: 'string',
+      sortIcon: 'horizontal_rule',
     },
     {
       text: 'Author',
       property: 'volumeInfo.authors',
       type: 'string',
+      sortIcon: 'horizontal_rule',
     },
     {
       text: 'Page Count',
       property: 'volumeInfo.pageCount',
       type: 'number',
+      sortIcon: 'horizontal_rule',
     },
     {
       text: 'Publish Date',
       property: 'volumeInfo.publishedDate',
       type: 'Date',
+      sortIcon: 'horizontal_rule',
     },
   ];
 
@@ -60,9 +65,32 @@ export class TableComponent implements OnInit {
 
   onSort(header: Header): void {
     this.store.dispatch(updateHeaderSort({ header }));
+    const nextIcon = this.getNextSortIcon(header.sortIcon);
+    const updatedHeaders = this.headers.map((h) => {
+      if (h.property === header.property) {
+        return {
+          ...h,
+          sortIcon: nextIcon,
+        };
+      }
+      return h;
+    });
+    Object.assign(this.headers, updatedHeaders);
   }
 
   drop(event: any) {
     moveItemInArray(this.headers, event.previousIndex, event.currentIndex);
+  }
+
+  private getNextSortIcon(sort: string): string {
+    switch (sort) {
+      case 'horizontal_rule':
+        return 'expand_more';
+      case 'expand_more':
+        return 'expand_less';
+      case 'expand_less':
+        return 'horizontal_rule';
+    }
+    return 'horizontal_rule';
   }
 }

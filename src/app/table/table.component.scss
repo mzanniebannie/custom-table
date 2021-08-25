@@ -1,3 +1,13 @@
 .header {
   cursor: pointer;
+  width: 25%;
+
+  .header-text {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 0.25em;
+    }
+  }
 }
